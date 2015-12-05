@@ -1,4 +1,4 @@
-package com.mtnaircomputer.atcsmon-dbtools;
+package com.mtnaircomputer.atcsmon_dbtools;
 
 /**
  * Hello world!
