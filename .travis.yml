@@ -3,3 +3,6 @@ language: java
 os:
   - linux
   - osx
+
+before_install:
+  - mvn --version
