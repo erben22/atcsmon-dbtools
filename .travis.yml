@@ -5,7 +5,5 @@ os:
   - osx
 
 before_install:
-  - printenv
   - export JAVA_HOME=$(/usr/libexec/java_home)
-  - echo $JAVA_HOME
   - mvn --version
