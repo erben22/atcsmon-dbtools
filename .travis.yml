@@ -4,9 +4,6 @@ before_script:
   - export JAVA_HOME=$(/usr/libexec/java_home)
   - mvn --version
 
-jdk:
-  - oraclejdk8
-
 os:
   - linux
   - osx
