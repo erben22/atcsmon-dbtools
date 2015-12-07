@@ -1,6 +1,6 @@
 language: java
 
-before_script:
+before_install:
   - export JAVA_HOME=$(/usr/libexec/java_home)
   - mvn --version
 
