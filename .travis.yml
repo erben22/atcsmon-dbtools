@@ -2,7 +2,6 @@ language: java
 
 before_install:
   - export JAVA_HOME=$(/usr/libexec/java_home)
-  - mvn --version
 
 os:
   - linux
