@@ -33,7 +33,18 @@ public class AppTest
      */
     public void testApp()
     {
-    	App.main(null);
+    	App.main( null );
         assertTrue( true );
+    }
+    
+    /**
+     * Testing main with some parameters.
+     */
+    public void testAppWithArguments()
+    {	
+    	String[] args = {"ATCSdb.mdb", "up_boone_15_1025.mbd"};
+    	
+    	App.main( args );
+    	assertTrue( true );
     }
 }
