@@ -15,9 +15,9 @@ public class AppTest
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+    public AppTest(String testName)
     {
-        super( testName );
+        super(testName);
     }
 
     /**
@@ -25,7 +25,7 @@ public class AppTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite(AppTest.class);
     }
 
     /**
@@ -33,8 +33,19 @@ public class AppTest
      */
     public void testApp()
     {
-    	App.main( null );
-        assertTrue( true );
+    	App.main(null);
+        assertTrue(true);
+    }
+    
+    /**
+     * Rigorous Test :-)
+     */
+    public void testAppEmptyOptions()
+    {	
+    	String[] emptyOptions = {""};
+    	
+    	App.main(emptyOptions);
+        assertTrue(true);
     }
     
     /**
@@ -42,9 +53,12 @@ public class AppTest
      */
     public void testAppWithArguments()
     {	
-    	String[] args = {"ATCSdb.mdb", "up_boone_15_1025.mbd"};
+    	String[] cmdLineOptions = {
+    			"-sourceDBPath", "up_boone_15_1025.mbd",
+    			"-masterDBPath", "ATCSdb.mdb"
+    	};
     	
-    	App.main( args );
-    	assertTrue( true );
+    	App.main(cmdLineOptions);
+    	assertTrue(true);
     }
 }

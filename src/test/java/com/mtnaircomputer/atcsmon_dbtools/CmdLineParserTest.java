@@ -15,9 +15,9 @@ public class CmdLineParserTest extends TestCase {
      *
      * @param testName name of the test case
      */
-    public CmdLineParserTest( String testName )
+    public CmdLineParserTest(String testName)
     {
-        super( testName );
+        super(testName);
     }
 
     /**
@@ -25,7 +25,7 @@ public class CmdLineParserTest extends TestCase {
      */
     public static Test suite()
     {
-        return new TestSuite( CmdLineParserTest.class );
+        return new TestSuite(CmdLineParserTest.class);
     }
 
     /**
@@ -33,7 +33,7 @@ public class CmdLineParserTest extends TestCase {
      */
     public void testParseOptionsNullInputFails()
     {
-    	assertNotNull( CmdLineParser.ParseOptions( null ) );
+    	assertNotNull( CmdLineParser.ParseOptions(null));
     }
 
     /**
@@ -46,10 +46,11 @@ public class CmdLineParserTest extends TestCase {
     			"-masterDBPath", "ATCSdb.mdb"
     	};
     	
-    	CommandLine commandLine = CmdLineParser.ParseOptions( cmdLineOptions );
-    	assertNotNull( commandLine );
+    	CommandLine commandLine = CmdLineParser.ParseOptions(cmdLineOptions);
+    	assertNotNull(commandLine);
     	
-    	assertTrue( commandLine.getOptionValue(
-    			"sourceDBPath" ).equals( "up_boone_15:1025.mbd" ));
+    	assertTrue(commandLine.getOptionValue(
+    			CmdLineParser.SOURCE_DB_PATH).equals(
+    					"up_boone_15_1025.mbd"));
        }
 }

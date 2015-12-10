@@ -3,10 +3,11 @@ package com.mtnaircomputer.atcsmon_dbtools;
 import java.io.File;
 import java.io.IOException;
 
-import java.util.*;
-import java.util.Date;
+//import java.util.*;
+//import java.util.Date;
 
 import org.apache.commons.cli.CommandLine;
+//import org.apache.commons.cli.CommandLineParser;
 
 import com.healthmarketscience.jackcess.Database;
 import com.healthmarketscience.jackcess.DatabaseBuilder;
@@ -22,12 +23,24 @@ public class App
 {
     public static void main(String[] args)
     {
-    	CommandLine commandLine = CmdLineParser.ParseOptions(args);
-
-		System.out.println("Hello World, packages and such");
-
+    	if ((args != null) && (args.length > 2))
+    	{
+	    	CommandLine commandLine = CmdLineParser.ParseOptions(args);
+	    	String sourceDBPath = commandLine.getOptionValue(
+	    			CmdLineParser.SOURCE_DB_PATH);
+	    	String masterDBPath = commandLine.getOptionValue(
+	    			CmdLineParser.MASTER_DB_PATH);
+	    	
+	    	DumpDatabase(masterDBPath);
+	    	DumpDatabase(sourceDBPath);
+    	}
+    }
+    
+    protected static void DumpDatabase(String dbPath){
 		try {
-			Database db = DatabaseBuilder.open(new File("ATCSdb.mdb"));
+		    System.out.println("Dumping database: " + dbPath);
+	    	
+			Database db = DatabaseBuilder.open(new File(dbPath));
 
 			try {
 				for(String tableName : db.getTableNames()) {

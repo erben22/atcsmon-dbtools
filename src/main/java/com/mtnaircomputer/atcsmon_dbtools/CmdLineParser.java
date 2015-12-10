@@ -6,7 +6,10 @@ import org.apache.commons.cli.*;
 
 public class CmdLineParser {
 
-	public static CommandLine ParseOptions( String[] args ) {
+	public static final String SOURCE_DB_PATH = "sourceDBPath";
+	public static final String MASTER_DB_PATH = "masterDBPath";
+	
+	public static CommandLine ParseOptions(String[] args) {
 		
 		CommandLine commandLine = null;
 	    
@@ -23,14 +26,14 @@ public class CmdLineParser {
 	    return commandLine;
 	}
 
-	public static Options createOptions() {
+	protected static Options createOptions() {
         
 		Options options = new Options();
 
         // Add all the possible options we support:
         
-        options.addOption("sourceDBPath", true, "Source MDB file path.");
-        options.addOption("masterDBPath", true, "MDB file path to update.");
+        options.addOption(SOURCE_DB_PATH, true, "Source MDB file path.");
+        options.addOption(MASTER_DB_PATH, true, "MDB file path to update.");
 
         return options;
     }
