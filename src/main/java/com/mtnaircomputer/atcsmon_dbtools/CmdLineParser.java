@@ -8,21 +8,21 @@ public class CmdLineParser {
 
 	public static CommandLine ParseOptions( String[] args ) {
 		
-		CommandLine cmd = null;
+		CommandLine commandLine = null;
 	    
 	    try {
 			Options options = CmdLineParser.createOptions();
 		    CommandLineParser parser = new BasicParser();
 		    
-	        cmd = parser.parse(options, args);
+		    commandLine = parser.parse(options, args);
 	
 	    } catch (ParseException e) {
 	        e.printStackTrace();
 	    }
 	    
-	    return cmd;
+	    return commandLine;
 	}
-    
+
 	public static Options createOptions() {
         
 		Options options = new Options();
@@ -34,5 +34,4 @@ public class CmdLineParser {
 
         return options;
     }
-
 }

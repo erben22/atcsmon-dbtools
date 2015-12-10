@@ -33,7 +33,7 @@ public class CmdLineParserTest extends TestCase {
      */
     public void testParseOptionsNullInputFails()
     {
-    	assertNotNull( CmdLineParser.ParseOptions( null ));
+    	assertNotNull( CmdLineParser.ParseOptions( null ) );
     }
 
     /**

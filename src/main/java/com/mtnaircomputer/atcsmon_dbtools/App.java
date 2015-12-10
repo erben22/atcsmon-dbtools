@@ -20,11 +20,12 @@ import com.healthmarketscience.jackcess.Column;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
     	CommandLine commandLine = CmdLineParser.ParseOptions(args);
-		System.out.println ("Hello World, packages and such");
-		
+
+		System.out.println("Hello World, packages and such");
+
 		try {
 			Database db = DatabaseBuilder.open(new File("ATCSdb.mdb"));
 
@@ -32,11 +33,11 @@ public class App
 				for(String tableName : db.getTableNames()) {
 					System.out.println("Table name: " + tableName);
 				}
-				
+
 				Table table = db.getTable("MCP");
 				for(Row row : table) {
 				    System.out.println("Look ma, a row: " + row);
-					
+
 				    for(Column column : table.getColumns()) {
 						    String columnName = column.getName();
 						    Object value = row.get(columnName);
@@ -49,7 +50,7 @@ public class App
 			finally {
 				db.close();
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
