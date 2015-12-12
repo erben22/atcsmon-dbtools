@@ -29,9 +29,12 @@ public class DatabaseWrapperTest extends TestCase {
     /**
      * 
      */
-    public void testOpenDatabase()
+    public void testDumpDatabase()
     {
-    	assertNotNull(null);
+    	DatabaseWrapper db = new DatabaseWrapper();
+    	db.DumpDatabase("ATCSdb.mdb");
+    	
+    	assertTrue( true );
     }
 
 

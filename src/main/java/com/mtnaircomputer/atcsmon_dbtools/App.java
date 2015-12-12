@@ -31,41 +31,10 @@ public class App
 	    	String masterDBPath = commandLine.getOptionValue(
 	    			CmdLineParser.MASTER_DB_PATH);
 	    	
-	    	DumpDatabase(masterDBPath);
-	    	DumpDatabase(sourceDBPath);
-    	}
-    }
-    
-    protected static void DumpDatabase(String dbPath){
-		try {
-		    System.out.println("Dumping database: " + dbPath);
+	    	DatabaseWrapper db = new DatabaseWrapper();
 	    	
-			Database db = DatabaseBuilder.open(new File(dbPath));
-
-			try {
-				for(String tableName : db.getTableNames()) {
-					System.out.println("Table name: " + tableName);
-				}
-
-				Table table = db.getTable("MCP");
-				for(Row row : table) {
-				    System.out.println("Look ma, a row: " + row);
-
-				    for(Column column : table.getColumns()) {
-						    String columnName = column.getName();
-						    Object value = row.get(columnName);
-						    System.out.println("Column " + columnName + "(" + column.getType() + "): "
-						    		+ (value != null ? value : "null") + " (" 
-						    		+ (value != null ? value.getClass() : "null") + ")");
-				    }
-				}
-			}
-			finally {
-				db.close();
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	    	db.DumpDatabase(masterDBPath);
+	    	db.DumpDatabase(sourceDBPath);
+    	}
     }
 }
