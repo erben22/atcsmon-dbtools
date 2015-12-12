@@ -54,7 +54,7 @@ public class AppTest
     public void testAppWithArguments()
     {	
     	String[] cmdLineOptions = {
-    			"-sourceDBPath", "up_boone_15_1025.mbd",
+    			"-sourceDBPath", "up_boone_15_1025.mdb",
     			"-masterDBPath", "ATCSdb.mdb"
     	};
     	

@@ -3,7 +3,6 @@ package com.mtnaircomputer.atcsmon_dbtools;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.*;
 
-
 public class CmdLineParser {
 
 	public static final String SOURCE_DB_PATH = "sourceDBPath";

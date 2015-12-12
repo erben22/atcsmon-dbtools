@@ -31,8 +31,8 @@ public class DatabaseWrapperTest extends TestCase {
      */
     public void testDumpDatabase()
     {
-    	DatabaseWrapper db = new DatabaseWrapper();
-    	db.DumpDatabase("ATCSdb.mdb");
+    	DatabaseWrapper db = new DatabaseWrapper("ATCSdb.mdb");
+    	db.DumpDatabase();
     	
     	assertTrue( true );
     }

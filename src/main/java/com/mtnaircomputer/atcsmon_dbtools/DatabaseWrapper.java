@@ -17,12 +17,18 @@ import com.healthmarketscience.jackcess.Table;
  *
  */
 public class DatabaseWrapper {
+	
+	protected String database_path = "";
+	
+	public DatabaseWrapper(String dbPath) {
+		database_path = dbPath;
+	}
 
-    public void DumpDatabase(String dbPath) {
+    public void DumpDatabase() {
 		try {
-		    System.out.println("Dumping database: " + dbPath);
+		    System.out.println("Dumping database: " + database_path);
 	    	
-			Database db = DatabaseBuilder.open(new File(dbPath));
+			Database db = DatabaseBuilder.open(new File(database_path));
 
 			try {
 				for(String tableName : db.getTableNames()) {
