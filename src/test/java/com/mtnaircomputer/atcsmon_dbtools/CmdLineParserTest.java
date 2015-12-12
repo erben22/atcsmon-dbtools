@@ -51,6 +51,6 @@ public class CmdLineParserTest extends TestCase {
     	
     	assertTrue(commandLine.getOptionValue(
     			CmdLineParser.SOURCE_DB_PATH).equals(
-    					"up_boone_15_1025.mbd"));
+    					"up_boone_15_1025.mdb"));
        }
 }
