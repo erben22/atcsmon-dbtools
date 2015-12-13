@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.mtnaircomputer.atcsmon_dbtools;
 
@@ -17,43 +17,47 @@ import com.healthmarketscience.jackcess.Table;
  *
  */
 public class DatabaseWrapper {
-	
-	protected String database_path = "";
-	
-	public DatabaseWrapper(String dbPath) {
-		database_path = dbPath;
-	}
+
+    protected String database_path = "";
+
+    public DatabaseWrapper(String dbPath) {
+        database_path = dbPath;
+    }
 
     public void DumpDatabase() {
-		try {
-		    System.out.println("Dumping database: " + database_path);
-	    	
-			Database db = DatabaseBuilder.open(new File(database_path));
+        if (database_path == null) {
+            return;
+        }
+        
+        try {
+            System.out.println("Dumping database: " + database_path);
 
-			try {
-				for(String tableName : db.getTableNames()) {
-					System.out.println("Table name: " + tableName);
-				}
+            Database db = DatabaseBuilder.open(new File(database_path));
 
-				Table table = db.getTable("MCP");
-				for(Row row : table) {
-				    System.out.println("Look ma, a row: " + row);
+            try {
+                for(String tableName : db.getTableNames()) {
+                    System.out.println("Table name: " + tableName);
+                }
 
-				    for(Column column : table.getColumns()) {
-						    String columnName = column.getName();
-						    Object value = row.get(columnName);
-						    System.out.println("Column " + columnName + "(" + column.getType() + "): "
-						    		+ (value != null ? value : "null") + " (" 
-						    		+ (value != null ? value.getClass() : "null") + ")");
-				    }
-				}
-			}
-			finally {
-				db.close();
-			}
+                Table table = db.getTable("MCP");
+                for(Row row : table) {
+                    System.out.println("Look ma, a row: " + row);
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+                    for(Column column : table.getColumns()) {
+                        String columnName = column.getName();
+                        Object value = row.get(columnName);
+                        System.out.println("Column " + columnName + "(" + column.getType() + "): "
+                            + (value != null ? value : "null") + " ("
+                            + (value != null ? value.getClass() : "null") + ")");
+                    }
+                }
+            }
+            finally {
+                db.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
