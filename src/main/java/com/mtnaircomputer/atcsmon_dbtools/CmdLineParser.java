@@ -7,6 +7,9 @@ public class CmdLineParser {
 
     public static final String SOURCE_DB_PATH = "sourceDBPath";
     public static final String MASTER_DB_PATH = "masterDBPath";
+    public static final String OPERATION = "operation";
+    public static final String OPERATION_DUMP = "dump";
+    public static final String OPERATION_MERGE = "merge";
 
     public static CommandLine ParseOptions(String[] args) {
 
@@ -33,6 +36,7 @@ public class CmdLineParser {
 
         options.addOption(SOURCE_DB_PATH, true, "Source MDB file path.");
         options.addOption(MASTER_DB_PATH, true, "MDB file path to update.");
+        options.addOption(OPERATION, true, "Operation to perform.  Supported values:  dump, merge");
 
         return options;
     }

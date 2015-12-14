@@ -21,15 +21,17 @@ public class DatabaseWrapper {
     protected String database_path = "";
 
     public DatabaseWrapper(String dbPath) {
-        database_path = dbPath;
+        if (dbPath != null) {
+            database_path = dbPath;
+        }
     }
 
     public void DumpDatabase() {
-        if (database_path == null) {
-            return;
-        }
-        
         try {
+            if (!ValidateDatabaseExists()) {
+                return;
+            }
+
             System.out.println("Dumping database: " + database_path);
 
             Database db = DatabaseBuilder.open(new File(database_path));
@@ -46,9 +48,9 @@ public class DatabaseWrapper {
                     for(Column column : table.getColumns()) {
                         String columnName = column.getName();
                         Object value = row.get(columnName);
-                        System.out.println("Column " + columnName + "(" + column.getType() + "): "
-                            + (value != null ? value : "null") + " ("
-                            + (value != null ? value.getClass() : "null") + ")");
+                        //System.out.println("Column " + columnName + "(" + column.getType() + "): "
+                        //    + (value != null ? value : "null") + " ("
+                        //    + (value != null ? value.getClass() : "null") + ")");
                     }
                 }
             }
@@ -58,6 +60,22 @@ public class DatabaseWrapper {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    protected boolean ValidateDatabaseExists() {
+        if (database_path == null) {
+            System.out.println("ERROR: database_path is null");
+            return false;
+        } else {
+            File dbFile = new File(database_path);
+            if (dbFile.exists() && !dbFile.isDirectory()) {
+                //System.out.println("INFO: database_path exists");
+                return true;
+            } else {
+                System.out.println("ERROR: database_path does not exist");
+                return false;
+            }
         }
     }
 }

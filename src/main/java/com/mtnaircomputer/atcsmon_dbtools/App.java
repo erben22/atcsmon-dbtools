@@ -10,19 +10,28 @@ public class App
 {
     public static void main(String[] args)
     {
-        //if ((args != null) && (args.length > 2))
-        {
-            CommandLine commandLine = CmdLineParser.ParseOptions(args);
-            String sourceDBPath = commandLine.getOptionValue(
-                CmdLineParser.SOURCE_DB_PATH);
-            String masterDBPath = commandLine.getOptionValue(
-                CmdLineParser.MASTER_DB_PATH);
+        CommandLine commandLine = CmdLineParser.ParseOptions(args);
+        String sourceDBPath = commandLine.getOptionValue(
+            CmdLineParser.SOURCE_DB_PATH);
+        String masterDBPath = commandLine.getOptionValue(
+            CmdLineParser.MASTER_DB_PATH);
+        String operation = commandLine.getOptionValue(
+            CmdLineParser.OPERATION);
 
-            DatabaseWrapper masterDB = new DatabaseWrapper(masterDBPath);
-            DatabaseWrapper sourceDB = new DatabaseWrapper(sourceDBPath);
+        if ((sourceDBPath != null) && (masterDBPath != null) &&
+            (operation != null)) {
 
-            masterDB.DumpDatabase();
-            sourceDB.DumpDatabase();
+            if (operation.equals(CmdLineParser.OPERATION_DUMP)) {
+                DatabaseWrapper masterDB = new DatabaseWrapper(masterDBPath);
+                DatabaseWrapper sourceDB = new DatabaseWrapper(sourceDBPath);
+
+                masterDB.DumpDatabase();
+                sourceDB.DumpDatabase();
+            } else if (operation.equals(CmdLineParser.OPERATION_MERGE)) {
+                System.out.println("Operation MERGE not yet implemented.");
+            } else {
+                System.out.println("ERROR:  Unknown operation.");
+            }
         }
     }
 }

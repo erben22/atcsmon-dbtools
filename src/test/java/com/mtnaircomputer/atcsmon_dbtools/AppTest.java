@@ -55,7 +55,8 @@ public class AppTest
     {	
     	String[] cmdLineOptions = {
     			"-sourceDBPath", "up_boone_15_1025.mdb",
-    			"-masterDBPath", "ATCSdb.mdb"
+    			"-masterDBPath", "ATCSdb.mdb",
+                "-operation", CmdLineParser.OPERATION_DUMP
     	};
     	
     	App.main(cmdLineOptions);
