@@ -28,7 +28,12 @@ public class App
                 masterDB.DumpDatabase();
                 sourceDB.DumpDatabase();
             } else if (operation.equals(CmdLineParser.OPERATION_MERGE)) {
-                System.out.println("Operation MERGE not yet implemented.");
+                System.out.println("Operation MERGE partially implemented.");
+                
+                DatabaseWrapper masterDB = new DatabaseWrapper(masterDBPath);
+                
+                masterDB.MergeDatabases();
+                
             } else {
                 System.out.println("ERROR:  Unknown operation.");
             }
