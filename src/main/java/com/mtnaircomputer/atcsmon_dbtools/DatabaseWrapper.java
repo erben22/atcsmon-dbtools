@@ -13,6 +13,8 @@ import java.io.IOException;
 //import com.healthmarketscience.jackcess.Table;
 import com.healthmarketscience.jackcess.*;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 //import com.healthmarketscience.jackcess.util.ExportUtil;
 
 /**
@@ -66,8 +68,9 @@ public class DatabaseWrapper {
         }
     }
 
-    public boolean MergeDatabases() {
-        if (!ValidateDatabaseExists()) {
+    public boolean MergeDatabases(String source_database_path) {
+        if (!ValidateDatabaseExists() ||
+            !ValidateDatabaseExists(source_database_path)) {
             return false;
         }
 
@@ -75,6 +78,7 @@ public class DatabaseWrapper {
 
         try {
             Database masterDB = DatabaseBuilder.open(new File(database_path));
+            Database sourceDB = DatabaseBuilder.open(new File(source_database_path));
 
             try {
                 System.out.println("****************************");
@@ -83,32 +87,37 @@ public class DatabaseWrapper {
                 System.out.println("AFTER database modification<");
                 System.out.println("****************************");
 
-                Table table = masterDB.getTable("MCP");
-                Date insertDate = new Date();
-                
-                table.addRow("8802837160015", "Cody W", "422.2", "0.0.252", 16,
-                    ",EGZ,,WGZ,,RWZ,,NWZ,,,,,,,,", "0.0.242", "16", ",EGK,EAK,WGK,WAK,RWK,TK,NWK,,,,,,,,",
-                    "UP Nampa" ,"ID Owyhee/Owyhee", "928.18125", "Genisys RFL", 0, "1161318W", "432518N",
-                    insertDate);
-                    //"Sun Jul 24 06:08:43 MDT 2011");
+                Table masterMCPTable = masterDB.getTable("MCP");
+                Table sourceMCPTable = sourceDB.getTable("MCP");
 
-                
-//                    06:08:43 MDT 2011
-//Column MCPUpdated(SHORT_DATE_TIME): null (null)
-//Column MCPActivityI(TEXT): null (null)
-//Column MCPActivityC(TEXT): null (null)
- //
-
-                for(Row row : table) {
-                    System.out.println("Look ma, a row: " + row);
-
-//                    for(Column column : table.getColumns()) {
-//                        String columnName = column.getName();
-//                        Object value = row.get(columnName);
-//                        System.out.println("Column " + columnName + "(" + column.getType() + "): "
-//                            + (value != null ? value : "null") + " ("
-//                            + (value != null ? value.getClass() : "null") + ")");
+//                for(Row row : sourceMCPTable) {
+//                    for (Map.Entry<String, Object> col : row.entrySet()) {
+//                        System.out.println("col.getKey()" + col.getKey());
+//                        System.out.println("col.getValue()" + col.getValue());
 //                    }
+//                }
+
+                //Date insertDate = new Date("Sun Jul 24 06:08:43 MDT 2011");
+
+                //masterMCPTable.addRow("8802837160016", "Cody W", "422.2", "0.0.252", 16,
+                //    ",EGZ,,WGZ,,RWZ,,NWZ,,,,,,,,", "0.0.242", "16", ",EGK,EAK,WGK,WAK,RWK,TK,NWK,,,,,,,,",
+                //    "UP Nampa" ,"ID Owyhee/Owyhee", "928.18125", "Genisys RFL", 0, "1161318W", "432518N",
+                //    insertDate, null, null);
+
+
+                for(Row row : sourceMCPTable) {
+                    System.out.println("Look ma, a row: " + row);
+                    Map<String,Object> columnMap = new HashMap<String, Object>();
+                    
+                    for(Column column : sourceMCPTable.getColumns()) {
+                        Object value = row.get(column.getName());
+                        if (value != null) {
+                            columnMap.put(column.getName(), value);
+                        }
+                    }
+                    
+                    masterMCPTable.addRow(columnMap.get("MCPAddress"));
+                    
                 }
 
                 System.out.println("****************************");
@@ -124,13 +133,17 @@ public class DatabaseWrapper {
     }
 
     protected boolean ValidateDatabaseExists() {
-        if (database_path == null) {
-            System.out.println("ERROR: database_path is null");
+        return ValidateDatabaseExists(database_path);
+    }
+
+    protected boolean ValidateDatabaseExists(String db_path) {
+        if (db_path == null) {
+            System.out.println("ERROR: db_path is null");
             return false;
         } else {
-            File dbFile = new File(database_path);
+            File dbFile = new File(db_path);
             if (dbFile.exists() && !dbFile.isDirectory()) {
-                //System.out.println("INFO: database_path exists");
+                //System.out.println("INFO: db_path exists");
                 return true;
             } else {
                 System.out.println("ERROR: database_path does not exist");

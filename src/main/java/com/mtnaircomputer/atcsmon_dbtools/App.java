@@ -32,7 +32,7 @@ public class App
                 
                 DatabaseWrapper masterDB = new DatabaseWrapper(masterDBPath);
                 
-                masterDB.MergeDatabases();
+                masterDB.MergeDatabases(sourceDBPath);
                 
             } else {
                 System.out.println("ERROR:  Unknown operation.");
